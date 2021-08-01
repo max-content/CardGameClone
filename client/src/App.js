@@ -1,65 +1,54 @@
-import React, { Component, useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import UploadForm from './components/UploadForm';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import { Router } from '@reach/router';
+// import { Route } from "react-router-dom";
+import axios from "axios";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./components/tutorial/Header";
+import Navbar from "./components/tutorial/Navbar";
+import Footer from "./components/tutorial/Footer";
+import Articles from "./components/tutorial/ArticleList";
+import AddArticle from "./components/tutorial/NewArticle";
+import EditArticle from "./components/tutorial/EditArticle";
+import Article from "./components/tutorial/ShowArticle";
 
-class App extends Component {
+function App() {
+  const [posts, setPosts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/")
+      .then(res => {
+        console.log(res)
+        setPosts(res.data)
+      })
+      .catch(error => console.log(error));
+  }, [loaded]);
   
-  constructor (props) {
-    super(props);
-    this.state = {
-      logo: logo
-    }
-  };
-
-  newImg = (file) => {
-    this.setState({logo: file});
+  const remove = id => {
+    console.log(id);
+    axios.delete(`http://localhost:5000/${id}`)
+      .then(res => {
+        setPosts(posts.filter(p => p._id != id));
+        console.log(`Delete -- Delete -- ${id}, you have been deleted`)})
+      .catch(error => console.log(error));
   }
-  
-  arrayBufferToBase64(buffer) {
-    const binary = '';
-    const bytes = [].slice.call( new Uint8Array(buffer));
 
-    bytes.forEach((b) => binary += String.fromCharCode(b));
+  return (
+    <div className="App">
+      <Header />
+      <Navbar />
+      <Router>
+        <AddArticle path="/add-article" setLoaded={setLoaded} loaded={loaded} />
+        <Articles path="/" posts={posts} remove={remove} />
+        <Article path="/article/:id"/>
+        <EditArticle path="/update/:id" />
+      </Router>
 
-    return window.btoa(binary);
-  };
-
-
-  componentDidMount = id => {
-    axios.post('http://localhost:8000/api/card/new', id)
-    .then((res) => res.json())
-    .then((data) => {
-      var base64Flag = 'data:image/jpeg;base64,';
-      var imageStr =
-      this.arrayBufferToBase64(data.img.data.data);
-      
-      this.setState({
-        img: base64Flag + imageStr
-            })
-    })
-  }
-  //   .then(res => this.setState({ img: res.data.id}))
-  //   .catch(err => {
-  //     this.setState({ errorMessage: err.message});
-  //     console.log('There was an error', err);
-  //   });
-  // }
-
-  render () {
-      return (
-        <div className="App">
-            <header className="App-header">
-              <img src={this.state.logo} className="App-logo" alt="logo" />
-              <Router >
-                <UploadForm path="/" onUploadProp={this.createCard} initialImg='' />
-              </Router>
-            </header>
-      </div>
-    );
-  }
+      <Footer />
+    </div>
+  );
 }
 
 export default App;

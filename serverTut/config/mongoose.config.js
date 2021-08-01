@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // require('dotenv/config');
 
-mongoose.connect('mongodb://localhost/cgcdb', {
+mongoose.connect('mongodb://localhost/tutclonedb', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
