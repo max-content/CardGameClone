@@ -15,6 +15,6 @@ const App = (props) => {
 
 //we're skipping a line and adding something here..
 //maybe this will be correct??
-//commenting works! 
+//commenting works! but not when you put in the wrong syntax
 
 export default App;
