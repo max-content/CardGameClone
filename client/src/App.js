@@ -9,5 +9,6 @@ const App = (props) => {
 }
 
 //this comment is a change - testing jira git connection
+//more changes for test commits
 
 export default App;
