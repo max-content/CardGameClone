@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import header from './images/header-bg.jpg';
 
 const MainContainer = styled.header`
-    background: url('./images/header-bg.jpg') no-repeat center/cover;
+    background: url(${header}) no-repeat center/cover;
     height: 25rem;
 
     h1 {
@@ -12,6 +13,12 @@ const MainContainer = styled.header`
         position: absolute;
         top: 25%;
         left: 50%;
+    }
+    
+    h2 {
+        transform: translate(235%, 575%);
+        position: absolute;
+        color: #ffffff;
     }
 `;
 

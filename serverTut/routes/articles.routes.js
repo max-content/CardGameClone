@@ -2,7 +2,7 @@ console.log("This is the Article Routes");
 const express = require('express');
 //const router = express.Router();
 const multer = require('multer');
-const Articles = require('../models/articles');
+const Articles = require('../models/articles.models');
 const ArticleController = require("../controllers/articles.controller");
 
 //setup for storage with multer middleware

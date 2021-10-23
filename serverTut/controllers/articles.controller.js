@@ -1,7 +1,7 @@
 console.log("I am in the Article Controller");
 const { request, response } = require("express");
 const { model, modelNames } = require("mongoose");
-const { Article } = require("../models/articles");
+const { Article } = require("../models/articles.models");
 
 // ==================Index Hello World =====================
 module.exports.index = (request, response) => {

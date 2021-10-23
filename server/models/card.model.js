@@ -1,43 +1,33 @@
+console.log('THIS IS THE CARD MODEL');
 const mongoose = require('mongoose');
 
 const CardSchema = new mongoose.Schema({
-    // name: {
-    //     type: String,
-    //     required: true,
-    // },
+    name: {
+        type: String,
+        required: true,
+    },
 
-    // type: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'CardType',
-    //     required: true,
-    // },
-
-    // rating: {
-    //     type: String,
-    //     enum: ['common', 'uncommon', 'rare', 'mythic rare'],
-    //     default: 'common'
-
-    // },
-
-    // flavor: {
-    //     type: String,
-    // },
-
-    // artwork: {
-    //     name: String,
-    //     artist: String,
-    //     img: {
-    //         data: Buffer, //type for parsing image as an array
-    //         contnetType: String
-    //     }
-    // },
+    rarity: {
+        type: String,
+        enum: ['common', 'uncommon', 'rare', 'mythic rare'],
+        default: 'common'
+        
+    },
     
-    img: {
-        data: Buffer, //type for parsing image as an array
-        contnetType: String
-    }
+    flavor: {
+        type: String,
+    },
+    
+    artwork: {
+        type: String,
+    },
 
-
+     typeOfCard: {
+        type: String,
+        enum: ['creature', 'sorcery', 'instant', 'enchantment', 'land', 'artifact', 'equipment'],
+        default: 'creature'
+    },
+    
 }, {timestamps: true});
 
 //CardSchema.index( { name: 1, type: -1}); //this should create an index position for each game
